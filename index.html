@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADITYA AI</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#090d1c;
+  color:white;
+  text-align:center;
+}
+header{
+  padding:25px;
+  color:#66d9ff;
+  font-size:30px;
+  font-weight:bold;
+}
+.chat{
+  max-width:600px;
+  margin:20px auto;
+  padding:15px;
+}
+#messages{
+  height:55vh;
+  overflow:auto;
+  background:#151d32;
+  border-radius:15px;
+  padding:15px;
+  text-align:left;
+}
+.message{
+  padding:12px;
+  margin:10px 0;
+  border-radius:12px;
+  background:#263653;
+}
+.controls{
+  display:flex;
+  gap:8px;
+  margin-top:15px;
+}
+input{
+  flex:1;
+  min-width:0;
+  padding:15px;
+  border-radius:10px;
+  border:0;
+}
+button{
+  padding:13px;
+  border:0;
+  border-radius:10px;
+  background:#087df5;
+  color:white;
+  font-weight:bold;
+}
+</style>
+</head>
+<body>
+<header>✨ ADITYA AI</header>
+<p>నీ పర్సనల్ AI అసిస్టెంట్</p>
+
+<div class="chat">
+  <div id="messages">
+    <div class="message">నమస్కారం! నేను ADITYA AI. నీకు ఎలా సహాయం చేయాలి?</div>
+  </div>
+
+  <div class="controls">
+    <input id="question" placeholder="ఇక్కడ టైప్ చేయి...">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+  <br>
+  <button onclick="speak()">🔊 Voice</button>
+</div>
+
+<script>
+function sendMessage(){
+  const input=document.getElementById("question");
+  const box=document.getElementById("messages");
+  const text=input.value.trim();
+  if(!text)return;
+
+  box.innerHTML += `<div class="message">నువ్వు: ${escapeHTML(text)}</div>`;
+  box.innerHTML += `<div class="message">ADITYA AI: నీ సందేశం అందింది! త్వరలో AI కనెక్షన్ ఏర్పాటు చేద్దాం.</div>`;
+  input.value="";
+  box.scrollTop=box.scrollHeight;
+}
+function escapeHTML(text){
+  return text.replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;',
+    '"':'&quot;',"'":'&#39;'
+  })[c]);
+}
+function speak(){
+  const msg=new SpeechSynthesisUtterance("నమస్కారం! నేను ADITYA AI.");
+  msg.lang="te-IN";
+  speechSynthesis.speak(msg);
+}
+</script>
+</body>
+</html>
